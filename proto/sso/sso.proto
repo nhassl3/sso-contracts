@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package auth;
 
+import "third_party/googleapis/google/api/field_behavior.proto";
+import "validate/validate.proto";
+
 option go_package = "nhassl3.sso.v1;ssov1";
 
 service Auth {
@@ -11,8 +14,14 @@ service Auth {
 }
 
 message RegisterRequest {
-  string email = 1; // Email of the user to register
-  string password = 2; // Password of the user to register
+  string email = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {email: true, min_len: 1}
+  ]; // Email of the user to register
+  string password = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 6, max_len: 100}
+  ]; // Password of the user to register
 }
 
 message RegisterResponse {
@@ -20,8 +29,14 @@ message RegisterResponse {
 }
 
 message LoginRequest {
-  string email = 1; // Email of the user to login
-  string password = 2; // Password of the user to login
+  string email = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {email: true, min_len: 1}
+  ]; // Email of the user to login
+  string password = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 6, max_len: 100}
+  ]; // Password of the user to login
   int32 app_id = 3; // ID of the application to login to
 }
 
