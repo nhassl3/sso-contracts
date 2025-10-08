@@ -1,5 +1,5 @@
 .git/
 .idea/
-sso-key
-sso-key.pub
+sso-contracts-key
+sso-contracts-key.pub
 proto/sso/googleapis/
